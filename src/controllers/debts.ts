@@ -6,7 +6,7 @@ interface IGetDebts {
   count: number;
 }
 
-export default class PersonController {
+export default class DebtsController {
   public static async getDebts(ctx: BaseContext) {
     const limit = ctx.query.limit;
     const offset = ctx.query.offset;
