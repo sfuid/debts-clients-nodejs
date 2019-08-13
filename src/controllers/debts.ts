@@ -16,7 +16,6 @@ export default class DebtsController {
       [limit, offset]
     );
 
-    console.log(rows);
     let body: IGetDebts = { rows: [], count: 0 };
 
     if (rows.length > 0) {
