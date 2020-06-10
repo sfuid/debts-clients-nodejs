@@ -8,12 +8,13 @@ interface IGetDebts {
 
 export default class DebtsController {
   public static async getDebts(ctx: BaseContext) {
+    const sum = ctx.query.sum;
     const limit = ctx.query.limit;
     const offset = ctx.query.offset;
 
     const { rows } = await pool.query(
-      'SELECT *, count(*) OVER() AS count FROM person p, (SELECT id_person, SUM(debt_sum) FROM debt GROUP BY id_person) d WHERE p.id_person = d.id_person  ORDER BY p.id_person ASC LIMIT $1 OFFSET $2',
-      [limit, offset]
+      'SELECT *, count(*) OVER() AS count FROM person p, (SELECT id_person, SUM(debt_sum) AS sum FROM debt GROUP BY id_person) d WHERE p.id_person = d.id_person AND d.sum = $1 ORDER BY p.id_person ASC LIMIT $2 OFFSET $3',
+      [sum, limit, offset]
     );
 
     let body: IGetDebts = { rows: [], count: 0 };
