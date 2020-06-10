@@ -1,8 +1,8 @@
-import { BaseContext } from 'koa';
+import { Context } from 'koa';
 import { pool } from '../database';
 
 export default class PersonController {
-  public static async updatePerson(ctx: BaseContext) {
+  public static async updatePerson(ctx: Context) {
     const id_person = ctx.request.body.id_person;
     const fio = ctx.request.body.fio;
 
